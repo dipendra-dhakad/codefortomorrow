@@ -1,72 +1,47 @@
-// // App.js
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import CardList from './Components/CardList/CardList';
-// // import { fetchPosts, removePost } from './redux/actions/postsActions';
+import "./App.css";
+import Products from "./Components/Products";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setItems } from "./Redux/slices/ProductSlice";
+import { Im } from 'react-icons/im';
 
-// import Home from './Pages/Home';
-// // import BottomNavigation from './Components/BottomNavigation';
+import { setPageItems } from "./Redux/slices";
 
-// const App = () => {
-//   const dispatch = useDispatch();
-//   const { loading, posts} = useSelector(state => state.posts);
+function App() {
+ 
+  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-//   useEffect(() => {
-//     dispatch(fetchPosts());
-//   }, [dispatch]);
-
-//   const handleRemove = postId => {
-//     dispatch(removePost(postId));
-//   };
-
-//   return (
-//     <div>
-//       {loading ? (
-//         <p>Loading...</p>
-//       ) : (
-//         <div>
-//           <CardList posts={posts} onRemove={handleRemove} />
-//           <Home />
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default App;
-
-
-// App.js
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, removePost } from './redux/actions/postsActions';
-import CardList from './Components/CardList/CardList';
-import BottomNavigation from './components/BottomNavigation';
-
-const App = () => {
   const dispatch = useDispatch();
-  const { loading, posts, currentPage } = useSelector(state => state.posts);
+
+  const fetchData = async () => {
+    const url = "https://jsonplaceholder.typicode.com/posts";
+    const response = await fetch(url);
+    const output = await response.json();
+
+    dispatch(setItems(output));
+    const firstSix = output.slice(0, 6);
+    dispatch(setPageItems(firstSix));
+  };
 
   useEffect(() => {
-    dispatch(fetchPosts());
-  }, [dispatch]);
+    fetchData();
+  }, []);
 
-  const handleRemove = postId => {
-    dispatch(removePost(postId));
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000); // 5000 milliseconds = 5 seconds
+
+    // Clear the timer to avoid memory leaks
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <CardList posts={posts} onRemove={handleRemove} />
-          <BottomNavigation />
-        </div>
-      )}
+      <Products loading={loading} isLoading={isLoading} setIsLoading={setIsLoading} />
     </div>
   );
-};
+}
 
 export default App;
