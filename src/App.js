@@ -2,10 +2,11 @@ import "./App.css";
 import Products from "./Components/Products";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setItems } from "./Redux/slices/ProductSlice";
-import { Im } from 'react-icons/im';
-
-import { setPageItems } from "./Redux/slices";
+import { setItems } from "./Redux/slices/ProductSlices";
+// import { setItems } from "./Redux/slices/ProductSlice";
+// import { Im } from 'react-icons/im';
+import { setPageItems } from "./Redux/slices/PageItems";
+// import { setPageItems } from "./Redux/slices";
 
 function App() {
  

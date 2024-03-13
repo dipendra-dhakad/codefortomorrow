@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "./Product";
 import Spinner from "./Spinner";
-import { setPageItems } from "../Redux/slices/PageItem";
+import { setPageItems } from "../Redux/slices/PageItems";
+
+// import { setPageItems } from "../Redux/slices/PageItem";
+// import {
+//   setCurrentPage,
+//   setNextPage,
+//   setPreviousPage,
+// } from "./Redux/slices/ProductSlice";
 import {
-  setCurrentPage,
-  setNextPage,
-  setPreviousPage,
-} from "../Redux/slices/ProductSlice";
+    setCurrentPage,
+    setNextPage,
+    setPreviousPage
+} from "../Redux/slices/ProductSlices"
+
 
 const Products = ({ loading, isLoading, setIsLoading }) => {
   const dispatch = useDispatch();

@@ -1,6 +1,9 @@
 import React from "react";
-import { ImCross } from "react-icons/im";
-import { removePageItems } from "../Redux/slices/PageItem";
+// import { ImCross } from "react-icons/im";
+import {ImCross} from "react-icons/im";
+import { removePageItems } from "../Redux/slices/PageItems";
+
+// import { removePageItems } from "../Redux/slices/PageItem";
 import { useDispatch } from "react-redux";
 
 const Product = ({ post }) => {
